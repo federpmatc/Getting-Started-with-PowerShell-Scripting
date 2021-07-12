@@ -1,0 +1,6 @@
+<Countries>
+	<Country Name="China" Population="1439323776" Validated="True" />	
+	<Country Name="India" Population="1380004385" Validated="True" />
+	<Country Name="America" Population="331002651" Validated="False" />
+	<Country Name="Spain" Population="46754778" Validated="True" />
+</Countries>

@@ -1,0 +1,26 @@
+{
+   "Countries": {
+      "Country": [
+         {
+            "Name": "China",
+            "Population": "1439323776",
+            "Validated": "True"
+         },
+         {
+            "Name": "India",
+            "Population": "1380004385",
+            "Validated": "True"
+         },
+         {
+            "Name": "America",
+            "Population": "331002651",
+            "Validated": "False"
+         },
+         {
+            "Name": "Spain",
+            "Population": "46754778",
+            "Validated": "True"
+         }
+      ]
+   }
+}
