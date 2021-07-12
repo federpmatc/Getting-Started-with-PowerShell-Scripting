@@ -21,13 +21,13 @@ $variableone = "value"
 $variabletwo = "value"
 
 if($variableone){	
-    Write-Output "The $variableone check returned true"
+    Write-Output 'The $variableone check returned true'
 }
 elseif($variabletwo){	
-    Write-Output "The $variabletwo check returned true"}
+    Write-Output 'The $variabletwo check returned true'}
     
 else{	
-    Write-Output "The $variableone and $variabletwo check returned false"
+    Write-Output 'The $variableone and $variabletwo check returned false'
 }
 
 ## IF Comparision
@@ -55,19 +55,27 @@ if($variable –match $comparevariable) {
 }
 
 ## IF Collection
-$array = 1..10 
+$array = @()  #define an array
+for (($i = 0); $i -lt 5; $i++) #assign odd 
+{
+    $array += $i*2 + 1
+}
+  
 $comparevariable = 6
 
 # If current array value is greater than compare value
 if($array –gt $comparevariable) {
-    Write-Host "Current collection value greater than the value"
+    Write-Host "Current collection contains a value greater than the value"
 }
 
 # If array contains the compare value
 if($array –contains $comparevariable) {
     Write-Host "Value found within Collection"
+} else {
+    Write-Host "Value NOT found within Collection"
 }
 
+$comparevariable = 5
 # If compare value is within the array
 if($comparevariable –in $array) {
     Write-Host "Value found within Collection"
@@ -89,18 +97,21 @@ if(($variable –eq $comparevariableOne) –or ($variable –eq $comparevariable
 }
 
 ## IF Arithmetic
-$variable = "value"
-$comparevariableOne = "value"
-$comparevariableTwo = "value"
+$variable = 5
+$comparevariableOne = 20
+$comparevariableTwo = 1
 
 # Add variables and check if result is greater than variable
+#illustrates use of subexpression 
 if(($comparevariableOne + $comparevariableTwo) –gt $variable) {
-    Write-Host "Result of Addition is greater than Variable"
+    Write-Host "Result of Addition $($comparevariableOne + $comparevariableTwo) is greater than $variable"
 }
 
 # Divide variables and check if result is less than variable
 if(($comparevariableOne / $comparevariableTwo) –lt $variable) {
     Write-Host "Result of Division is greater than Variable"
+} else {
+    Write-Host "Result of Division is NOT greater than Variable"
 }
 
 # Multiply variables and check if result is equal to the variable
@@ -108,6 +119,7 @@ if(($comparevariableOne * $comparevariableTwo) –eq $variable) {
     Write-Host "Result of Multiplication is greater than Variable"
 }
 
+#Ternary is new to PS7
 ## IF Ternary
 $variableOne = "1"
 $variableTwo = "3"
@@ -124,7 +136,7 @@ $textVariable = $true
 $number = 1
 
 Do { 
-    $number; 
+    $number 
     $number++ 
 } While ($number -le 10)
 
@@ -132,13 +144,13 @@ Do {
 $number = 1
 
 Do {
-    $number; 
+    $number
     $number++ 
 } Until ($number -gt 10)
 
 
 ## Switch Statement
-$number = 3
+$number = 100
 
 Switch ($number) {	
     5	{ Write-Host "Number equals 5" }	
@@ -181,16 +193,19 @@ ForEach ($item in $collection) { 
 
 
 # FOREACH Loop FIies in Folder
+
 $path = "C:\Documents"
+New-Item -Path $path -ItemType Directory -Force
+New-Item -Path $path -ItemType File -Name file1.txt -Force
+if ((Test-Path ($path+'\file1.txt')) -eq $false) {
+    New-Item -Path $path -ItemType File -Name file2.txt }
 
 ForEach ($file in Get-ChildItem $path) { 	
     Write-Host "Current Filename: $file"
 }
 
-
-
-
-
+$nodes = 1..127 + 240..254 |
+  ForEach-Object{ "192.168.1.$_"}
 
 
 
