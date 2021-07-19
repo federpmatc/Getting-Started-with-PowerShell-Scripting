@@ -204,8 +204,7 @@ ForEach ($file in Get-ChildItem $path) { 
     Write-Host "Current Filename: $file"
 }
 
-$nodes = 1..127 + 240..254 |
-  ForEach-Object{ "192.168.1.$_"}
+$nodes = 1..127 + 240..254 | ForEach-Object{ "192.168.1.$_"}
 
 
 
