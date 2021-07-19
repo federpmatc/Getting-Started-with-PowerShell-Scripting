@@ -1,7 +1,23 @@
 
 
-$path = "C:\Temp\Documents"
-$outputPath = "C:\Temp\Output"
+$path = "C:\windows"
+$outputPath = "C:\Temp"
+
+Function Test-Params{	
+    Param(		
+        [Parameter(Mandatory=$true)]
+        [ValidateSet("dd","ddd")]			
+        [string]$FileType,	
+
+        [Parameter(Mandatory=$true)]
+        [string]$FileType2	
+    )
+    
+    write-host "FileType is $FileType and FileType2 is $FileType2"
+}
+
+Test-Params -FileType2 "ddd" -FileType "dd"
+Test-Params
 
 # Iterate Files Function
 Function Get-Files{	
@@ -12,6 +28,8 @@ Function Get-Files{
     
     Get-ChildItem -Path "$path\*.$FileType" -Recurse -Force
 }
+
+Get-Files txt
 
 # Create Class for Autocomplete Values
 class Cities : System.Management.Automation.IValidateSetValuesGenerator{	
