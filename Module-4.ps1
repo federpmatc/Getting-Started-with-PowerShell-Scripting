@@ -5,22 +5,24 @@ $variable2 = "C:\Documents\"
 # Create a typed variable
 [Int]$variable1 = 10
 [DateTime]$variable2 = "January 1, 2021" 
+#We cast  variable, it will stay as that type until we re-cast
 
 # Variables
 $variable1 = "1"
 $variable2 = 9
 
 # Converting Variables
+$variable1.GetType()
 $variable1.GetType().Name
 $variable1
 $variable1 + $variable2
-[Int]$variable1 + $variable2 
+[Int]$variable1 * 5
 
 # Casting Variables and Values
 $variable1 = "1"
 $variable2 = "01/01/2021"
 
-# Converting String Variable to Integer
+ # Converting String Variable to Integer
 [Int]$variable1
 
 # Converting String Variable to Date
@@ -28,6 +30,7 @@ $variable2 = "01/01/2021"
 
 # Converting False Value to Integer
 [int]$false
+[int]$true
 
 ## Casting Using the –AS Operator
 $variable1 = "1"
@@ -43,20 +46,23 @@ $variable2 –as [DateTime]
 $false –as [Int]
 
 ## Using the -Replace Operator
-$variable1 = "The class instructor asked for a volunteer for a demonstration"
-$variable2 = "Jones Tom" 
+[string]$variable1 = "The class instructor asked for a volunteer for a demonstration"
+[string]$variable2 = "Jones Tom" 
 
 # Read Variable and Replace Value
-$variable -replace "instructor","teacher"
+
+$variable1 -replace "instructor","teacher"
 
 # Read Variable, Replace Value and Load into New Variable
-$replacevariable = $variable -replace "instructor","teacher"
+$replacevariable = $variable1 -replace "instructor","teacher"
 
 # Using Replace and RegEx to Swap Names
 $variable2 = $variable2 -replace "([a-z]+)\s([a-z]+)",'$2, $1'
 
-# Using Replace and RegEx to Remove Spaces
-$variable1 -replace '[^a-z]'
+ $variable2 -replace '[^a-z]','$2, $1'
+
+# Using Replace and RegEx to Remove everything except letters
+$variable2 -replace '[^a-z]',""
 
 ## Using the -SPLIT Operator
 # Split String Value using Default Delimiter
@@ -73,6 +79,7 @@ $variable = "January,February,March,April,May,June"
 $variable -split ","
 
 # Split Variable Value using Comma Delimiter
+#Some objects have a split function 
 $variable = "January,February,March,April,May,June"
 $variable.Split(',')
 
@@ -83,11 +90,11 @@ $variable.Split(','). Split(';')
 ## String Padding
 # Padding the Left of a Value
 $variable = "Demonstration"
-$variable.PadLeft(14,'A')
+$variable.PadLeft(17,'A')
 
 # Padding the Right of a Value
 $variable = "Demonstration"
-$variable.PadRight(14,'B')
+$variable.PadRight(18,'B')
 
 ## Creating Arrays
 # Create Empty Array
@@ -100,7 +107,8 @@ $variable = @('January','February','March','April','May','June')
 $variable = 'January','February','March','April','May','June'
 
 # Create Array with Text Values not using "@()"
-$variable = Write-Output January February March April May June
+$variable = Write-Output "January" "February" March April May June
+
 
 # Access Array Item using Offset
 $variable[0]
@@ -115,6 +123,7 @@ $variable[2..5]
 $variable = @('January','February','March','April','May','June')
 
 # Access Array Items using Pipeline with ForEach-Object Loop
+$variable | ForEach-Object {"The month is: $_"}
 $variable | ForEach-Object {"The month is: $PSItem"}
 
 # Access Array Items using a ForEach Loop
@@ -125,11 +134,17 @@ $variable.ForEach({"The month is: $PSItem"})
 
 # Access Array Items using For Loop
 for ($item = 0; $item -lt $variable.count; $item++) {	
-    "The month is: {0}" -f $variable[$item];	
+    "The month is: {0}" -f $variable[$item]	
+    Write-Host "Current Position: $item"
+}
+
+for ($item = 0; $item -lt $variable.count; $item++) {	
+    "The month is $($variable[$item])"	
     Write-Host "Current Position: $item"
 }
 
 # Create an Empty Hashtable
+# Recall arrays used ()
 $variable = @{}
 
 # Create a Hashtable with Keys and Values
@@ -145,7 +160,7 @@ $variable = @{ 
     America = 331002651;	
     Spain = 46754778
 }
-
+$variable | gm
 # Iterate all Keys and Values using ForEach-Object Loop
 $variable.keys | ForEach-Object{ 	
     $output = '{0} has a population of {1}' -f $_, $variable[$_];	
@@ -172,6 +187,7 @@ $variable = [PSCustomObject]@{
     'Spain' = '46754778';
 }
 
+$variable | gm
 # Add Items to PSCustomObject
 $variable | Add-Member -MemberType NoteProperty -Name 'Russia' -Value '145934462'
 $variable | Add-Member -MemberType NoteProperty -Name 'Norway' -Value '5421241'
@@ -185,6 +201,7 @@ $variable = [PSCustomObject]@{
 }
 
 # Return all PSCustomObject Key/Value Pairs
+#one object with multiple key/value pairs
 $variable
 
 # Return Spain PSCustomObject
